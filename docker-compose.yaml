@@ -1,12 +1,12 @@
-services:
+version: "3.9"
 
+services:
   geoffrey-yolo-client:
     image: geoffrey/geoffrey-yolo-client:v1.0.0
     build: ./client
     container_name: geoffrey-yolo-client
     volumes:
       - ./client:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - "3000:80"
     depends_on:
@@ -22,7 +22,6 @@ services:
     container_name: geoffrey-yolo-backend
     volumes:
       - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - "5000:5000"
     env_file:
@@ -34,16 +33,17 @@ services:
       - project-network
 
   app-ip-mongo:
-    image: mongo:7.0
+    image: bitnami/mongodb:7.0
     container_name: app-mongo
     ports:
       - "27017:27017"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=app-mongo
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - app-mongo-data:/bitnami/mongodb
     networks:
       - project-network
-    volumes:
-      - type: volume
-        source: app-mongo-data
-        target: /data/db
 
 networks:
   project-network:
@@ -51,7 +51,6 @@ networks:
     name: project-network
     ipam:
       config:
-        # Changed subnet to avoid overlap
         - subnet: 172.21.0.0/16
           ip_range: 172.21.0.0/16
 
