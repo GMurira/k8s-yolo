@@ -1,34 +1,41 @@
-# Node.js and build artifacts
+# Dependency directories
 node_modules/
 npm-debug.log
+
+# Build artifacts
 build/
 dist/
+coverage/
 
 # Version control
 .git/
-.github/
 .gitignore
+.github/
 
-# Editor and OS files
-.DS_Store
+# Editor config and OS files
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
 
-# Docker-related files
-Dockerfile
+# Docker config
 Dockerfile*
+docker-compose*.yml
 
 # Documentation
 README.md
+LICENSE
 
-# Data directories
-app-mongo-data/
-
-# Environment files
+# Environment variables
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example  # Allow a safe example to be included
 
-# Test and coverage
+# Tests
 tests/
 __tests__/
-coverage/
+*.test.js
+*.spec.js
+
+# Data volumes (if any)
+app-mongo-data/

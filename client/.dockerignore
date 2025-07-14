@@ -1,0 +1,41 @@
+# Dependency directories
+node_modules/
+npm-debug.log
+
+# Build artifacts
+build/
+dist/
+coverage/
+
+# Version control
+.git/
+.gitignore
+.github/
+
+# Editor config and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docker config
+Dockerfile*
+docker-compose*.yml
+
+# Documentation
+README.md
+LICENSE
+
+# Environment variables
+.env
+.env.*
+!.env.example  # Allow a safe example to be included
+
+# Tests
+tests/
+__tests__/
+*.test.js
+*.spec.js
+
+# Data volumes (if any)
+app-mongo-data/
