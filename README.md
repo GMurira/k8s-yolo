@@ -1,15 +1,13 @@
-# Overview
-This project involved the containerization and deployment of a full-stack yolo application using Docker.
+#Geoffrey Murira IP2(Yolo Ecommerce Application)
 
 
-# Requirements
-Install the docker engine here:
-- [Docker](https://docs.docker.com/engine/install/) 
+##  Tech Stack
 
-## How to launch the application 
+| Component | Technology Used |
+|----------|------------------|
+| Frontend | Node.js (React / Plain JS) |
+| Backend | Node.js (Express API) |
+| Database | MongoDB |
+| Containerization | Docker & Docker Compose |
 
-
-![Alt text](image.png)
-
-## How to run the app
-Use vagrant up --provison command
+#Steps tu run the application.
