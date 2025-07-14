@@ -1,63 +1,60 @@
-version: "3.8"
-
 services:
 
-  # Builds the frontend Docker image and creates the frontend microservice
   geoffrey-yolo-client:
-    image: geoffreybwire/geoffrey-yolo-client:v1.0.0
+    image: geoffrey/geoffrey-yolo-client:v1.0.0
     build: ./client
     container_name: geoffrey-yolo-client
-    stdin_open: true
-    tty: true
-    # Corrected: Map host port 3000 to the container's Nginx port 80
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3000:80"
     depends_on:
       - geoffrey-yolo-backend
-    networks:
-      - app-net
-
-  # Builds the backend Docker image and creates the backend microservice
-  geoffrey-yolo-backend:
-    image: geoffreybwire/geoffrey-yolo-backend:v1.0.0
-    build: ./backend
-    container_name: geoffrey-yolo-backend
     stdin_open: true
     tty: true
-    restart: always
+    networks:
+      - project-network
+
+  geoffrey-yolo-backend:
+    image: geoffrey/geoffrey-yolo-backend:v1.0.0
+    build: ./backend
+    container_name: geoffrey-yolo-backend
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "5000:5000"
+    env_file:
+      - .env
+    restart: always
     depends_on:
       - app-ip-mongo
     networks:
-      - app-net
+      - project-network
 
-  # Creates the database microservice
   app-ip-mongo:
-    # Changed to a smaller Alpine-based MongoDB image
-    image: mongo:6-alpine
+    image: mongo:7.0
     container_name: app-mongo
     ports:
       - "27017:27017"
     networks:
-      - app-net
+      - project-network
     volumes:
       - type: volume
         source: app-mongo-data
         target: /data/db
 
-# Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
-  app-net:
-    name: app-net
+  project-network:
     driver: bridge
-    attachable: true
+    name: project-network
     ipam:
       config:
-        - subnet: 172.20.0.0/16
-          ip_range: 172.20.0.0/16
+        # Changed subnet to avoid overlap
+        - subnet: 172.21.0.0/16
+          ip_range: 172.21.0.0/16
 
-# Creates a Docker volume that persists all the data stored in the database
 volumes:
   app-mongo-data:
     driver: local

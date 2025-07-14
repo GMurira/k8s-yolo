@@ -1,12 +1,21 @@
-#Docker file for the backend
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm install
+
+RUN npm ci
+
+COPY . .
+
+FROM node:18-alpine AS production
+
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY . .
 
 EXPOSE 5000
+
 CMD ["npm", "start"]
