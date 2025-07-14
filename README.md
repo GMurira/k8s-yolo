@@ -53,10 +53,12 @@ cd yolo
 # Build and run all containers
 docker-compose up --build
 
-🔗 Docker Hub Repositories
+🔗 Docker Hub Repositories(https://hub.docker.com/repositories/neoooo2)
 geoffrey-yolo-client
 
 geoffrey-yolo-backend
+
+/home/kalahari/Pictures/Screenshots/Screenshot from 2025-07-14 19-58-51.png
 
 👤 Author
 Geoffrey Murira
