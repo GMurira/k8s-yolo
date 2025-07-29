@@ -1,0 +1,16 @@
+---
+- name: Pull frontend image from Docker Hub
+  docker_image:
+    name: neoooo2/geoffrey-yolo-client:v1.0.0
+    source: pull
+
+- name: Run frontend container
+  docker_container:
+    name: geoffrey-yolo-client
+    image: neoooo2/geoffrey-yolo-client:v1.0.0
+    ports:
+      - "3000:3000"
+    networks:
+      - name: app-net
+    command: "npm start"
+  become: yes

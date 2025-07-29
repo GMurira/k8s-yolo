@@ -1,0 +1,16 @@
+---
+- name: Pull backend image from Docker Hub
+  docker_image:
+    name: neoooo2/geoffrey-yolo-backend:v1.0.0
+    source: pull
+
+- name: Run backend container
+  docker_container:
+    name: geoffrey-yolo-backend
+    image: neoooo2/geoffrey-yolo-backend:v1.0.0
+    ports:
+      - "5000:5000"
+    networks:
+      - name: app-net
+    command: "npm start"
+  become: yes

@@ -1,0 +1,19 @@
+---
+- name: Deploy Yolo App Infrastructure
+  hosts: all
+  become: true
+
+  vars:
+    node_app_directory: /home/vagrant/ecommerce-backend
+    react_app_directory: /home/vagrant/ecommerce-frontend
+
+  pre_tasks:
+    - name: Create app-net Docker network
+      docker_network:
+        name: app-net
+      become: yes
+
+  roles:
+    - setup-mongodb
+    - backend-deployment
+    - frontend-deployment
