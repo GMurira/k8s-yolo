@@ -53,11 +53,42 @@ geoffrey-yolo-backend
 ![DockerHub Screenshot](dockerhub-screenshot.png)
 
 
+🐳 How to Pull from Docker Hub
+If you'd like to run the application using pre-built images from Docker Hub:
+
+bash
+Copy
+Edit
+# Pull the backend image
+docker pull neoooo2/geoffrey-yolo-backend:v1.0.0
+
+# Pull the frontend image
+docker pull neoooo2/geoffrey-yolo-client:v1.0.0
+Update your docker-compose.yaml file to remove the build: lines under each service and ensure image: is correctly set like this:
+
+yaml
+Copy
+Edit
+geoffrey-yolo-client:
+  image: neoooo2/geoffrey-yolo-client:v1.0.0
+  ...
+
+geoffrey-yolo-backend:
+  image: neoooo2/geoffrey-yolo-backend:v1.0.0
+  ...
+Then run:
+
+bash
+Copy
+Edit
+docker-compose up
+
+
 
 👤 Author
 Geoffrey Murira
 
-DockerHub Profile
+DockerHub Profile(neoooo2)
 GitHub Profile
 Nairobi, Kenya 🇰🇪
 

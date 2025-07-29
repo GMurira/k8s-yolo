@@ -6,4 +6,5 @@ vault.yml
 .vscode/
 .vscode
 .vscode/*
-.vscode/*.json.env
+.vscode/*.json
+.env
