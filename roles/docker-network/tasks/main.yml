@@ -1,0 +1,5 @@
+---
+- name: Create app-net Docker network
+  docker_network:
+    name: app-net
+  become: yes

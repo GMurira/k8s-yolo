@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
   geoffrey-yolo-client:
@@ -28,11 +28,11 @@ services:
       - .env
     restart: always
     depends_on:
-      - app-ip-mongo
+      - app-mongo
     networks:
       - project-network
 
-  app-ip-mongo:
+  app-mongo:
     image: bitnami/mongodb:7.0
     container_name: app-mongo
     ports:
@@ -48,12 +48,6 @@ services:
 networks:
   project-network:
     driver: bridge
-    name: project-network
-    ipam:
-      config:
-        - subnet: 172.21.0.0/16
-          ip_range: 172.21.0.0/16
 
 volumes:
   app-mongo-data:
-    driver: local

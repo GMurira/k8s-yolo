@@ -1,0 +1,16 @@
+---
+- name: Pull MongoDB image
+  docker_image:
+    name: mongo
+    source: pull
+
+- name: Run MongoDB container
+  docker_container:
+    name: mongo
+    image: mongo
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
