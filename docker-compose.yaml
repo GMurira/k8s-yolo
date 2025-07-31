@@ -1,31 +1,27 @@
-
+version: "3.8"
 
 services:
   geoffrey-yolo-client:
+    build:
+      context: ./client
     image: geoffrey/geoffrey-yolo-client:v1.0.0
-    build: ./client
     container_name: geoffrey-yolo-client
-    volumes:
-      - ./client:/usr/src/app
     ports:
       - "3000:80"
     depends_on:
       - geoffrey-yolo-backend
-    stdin_open: true
-    tty: true
     networks:
       - project-network
 
   geoffrey-yolo-backend:
+    build:
+      context: ./backend
     image: geoffrey/geoffrey-yolo-backend:v1.0.0
-    build: ./backend
     container_name: geoffrey-yolo-backend
-    volumes:
-      - ./backend:/usr/src/app
     ports:
       - "5000:5000"
     env_file:
-      - .env
+      - ./backend/.env
     restart: always
     depends_on:
       - app-mongo
@@ -36,9 +32,8 @@ services:
     image: bitnami/mongodb:7.0
     container_name: app-mongo
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=app-mongo
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - app-mongo-data:/bitnami/mongodb

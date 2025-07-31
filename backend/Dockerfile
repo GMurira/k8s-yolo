@@ -4,16 +4,12 @@ FROM node:18-alpine AS builder
 # Set working directory
 WORKDIR /usr/src/app
 
-# Copy only package files and install dependencies
+# Copy package files and install all dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # Copy application source code
 COPY . .
-
-# Optional: Build the app (uncomment if needed)
-# RUN npm run build
-
 
 # -------- Production Stage --------
 FROM node:18-alpine AS production
@@ -21,14 +17,17 @@ FROM node:18-alpine AS production
 # Set working directory
 WORKDIR /usr/src/app
 
-# Only copy production dependencies
+# Copy only production dependencies
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
-# Copy application source (or just /dist if built)
-COPY --from=builder /usr/src/app ./
+# Copy only application code (no dev tooling)
+COPY --from=builder /usr/src/app .
+
+# Set environment to production
+ENV NODE_ENV=production
 
 # Expose app port
 EXPOSE 5000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
