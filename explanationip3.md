@@ -19,12 +19,7 @@ This project uses **Ansible** to automate deployment of a full-stack e-commerce 
 
 Ensure that it is installed
 <pre>vagrant --version</pre>
-##  Deployment Steps
 
-1. **Clone this repository**
-   ```bash
-   git clone <your-repo-url>
-   cd yolo
 
 Why Use Ansible in This Project?
 In this project, Ansible is used to automate the deployment of the full-stack yolo e-commerce application inside a Vagrant-provisioned Ubuntu 20.04 virtual machine. It eliminates the need for manual setup by:
@@ -57,6 +52,28 @@ all:
 **Playbook:**
 This is your main instruction file. It lists tasks that Ansible should run on the hosts listed in the inventory.
 
+<pre>
+---
+- name: Deploy Yolo App Infrastructure
+  hosts: all
+  become: true
+
+  vars:
+    node_app_directory: /home/vagrant/ecommerce-backend
+    react_app_directory: /home/vagrant/ecommerce-frontend
+
+  pre_tasks:
+    - name: Create app-net Docker network
+      docker_network:
+        name: app-net
+      become: yes
+
+  roles:
+    - setup-mongodb
+    - backend-deployment
+    - frontend-deployment
+
+</pre>
 
  **Roles**
   The "How to Do It"
@@ -74,9 +91,7 @@ roles/
 '''
 
 **The ansible.cfg**  
- file is the configuration file for Ansible. It tells Ansible how to behave globally
-
-
+    File is the configuration file for Ansible. It tells Ansible how to behave globally
 <pre>
 [defaults]
 inventory = inventory.yml
@@ -86,7 +101,10 @@ roles_path = ./roles
 remote_user = vagrant
 private_key_file = .vagrant/machines/default/virtualbox/private_key
 </pre>
-    Run the Ansible Playbook
+
+
+
+** Run the Ansible Playbook**
 
 <pre>ansible-playbook -i inventory.yml playbook.yml</pre>
 
