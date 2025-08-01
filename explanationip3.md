@@ -36,6 +36,26 @@ Ensure that it is installed
    git clone <your-repo-url>
    cd yolo
 
+Why Use Ansible in This Project?
+In this project, Ansible is used to automate the deployment of the full-stack yolo e-commerce application inside a Vagrant-provisioned Ubuntu 20.04 virtual machine. It eliminates the need for manual setup by:
+
+Installing required software (like Docker and Docker Compose)
+
+Pulling Docker images from Docker Hub
+
+Setting up and running containers for the backend, frontend, and MongoDB
+
+Ensuring idempotent infrastructure setup — repeatable and consistent
+
+
+
+Ansible Project Structure
+
+ansible/
+├── inventory.yml      # Defines the target host (Vagrant box)
+└── playbook.yml       # Main playbook for provisioning and deployment
+
+
     Run the Ansible Playbook
 
 <pre>ansible-playbook -i inventory.yml playbook.yml</pre>
@@ -61,7 +81,26 @@ vagrant file
   config.vm.network "forwarded_port", guest: 27017, host: 27017 # MongoDB
 </pre>
 
-navigate to your local browser at
+Navigate to your local browser at
 <pre>http://localhost:3000</pre>
 
-![Alt Text](readmeimages/ansible.png)
+![Alt Text](readmeimages/frontend.png)
+
+Add products to the application, to ensure functionality is working.
+![Alt Text](readmeimages/addaproduct.png)
+
+USe curl to see if the backend received the new data succesfully
+
+![Alt Text](readmeimages/readbackendwithcurl.png)
+
+Congratulations your appilcation is you application is now up and running inside your Vagrant VM(Virtual Machine)
+
+![Alt Text](readmeimages/persistdata.png)
+
+To stop the apllication, run
+<pre> docker-compose down</pre>
+
+exit from your vagrant machine
+<pre>exit</pre>
+Stop the vagrant machine
+<pre>vagrant halt</pre>
