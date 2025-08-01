@@ -9,25 +9,7 @@ This project uses **Ansible** to automate deployment of a full-stack e-commerce 
 - Docker for containerization
 
 ---
-## ⚙️ Prerequisites
 
-Ensure the following are installed:
-
-- [Node.js](https://nodejs.org/) (v20+)
-- [MongoDB](https://www.mongodb.com/) (v6.0+)
-- [Docker](https://docs.docker.com/) (v20.10+)
-- [Docker Compose](https://docs.docker.com/compose/) (v2.0+)
-- [Vagrant](https://www.vagrantup.com/) (1.0.4+)
-- [Ansible](https://www.ansible.com/) (installed on your **host** machine)
-
-### 🧱 Base VM Box
-- Vagrant Box: [`geerlingguy/ubuntu2004`](https://portal.cloud.hashicorp.com/vagrant/discover/geerlingguy/ubuntu2004)
-
-### 🛠️ Vagrant Setup
-```bash
-sudo apt update
-sudo apt install vagrant
-vagrant --version
 
 <pre> ```bash # Initialize the geerlingguy/ubuntu2004 Vagrant box vagrant init geerlingguy/ubuntu2004 # Start and provision the Vagrant environment vagrant up ``` </pre>
 - vagrant, to install vagrantrant
@@ -83,7 +65,8 @@ yolo/
 
 ![Alt Text](readmeimages/ansible.png)
 
-# USe vagrant to manage your Virtual Machine
+
+Use Vagrant to manage your Virtual Machines.
 <pre> Vagrant Up</pre>
 
 Gain acces to your Vagrant VM
