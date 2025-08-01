@@ -61,7 +61,7 @@ yolo/
 
     Run the Ansible Playbook
 
-<pre>ansible-playbook -i inventory.yml playbook.yml</pre>
+'''ansible-playbook -i inventory.yml playbook.yml'''
 
 ![Alt Text](readmeimages/ansible.png)
 
