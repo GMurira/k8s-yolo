@@ -110,7 +110,9 @@ roles/
 '''
 
 ## The ansible.cfg 
-    File is the configuration file for Ansible. It tells Ansible how to behave globally
+
+- File is the configuration file for Ansible. It tells Ansible how to behave globally
+
 <pre>
 [defaults]
 inventory = inventory.yml
