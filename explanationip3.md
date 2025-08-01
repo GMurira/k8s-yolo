@@ -39,7 +39,7 @@ Ensuring idempotent infrastructure setup — repeatable and consistent
 
 
 
-Ansible Project Structure.
+**Ansible Project Structure.**
 
 Inventoty -Defines the VM as a remote host (default)
 
@@ -54,11 +54,12 @@ all:
 
 '''
 
-Playbook:
+**Playbook:**
 This is your main instruction file. It lists tasks that Ansible should run on the hosts listed in the inventory.
 
 
- 3. roles/ — The "How to Do It"
+ **Roles**
+  The "How to Do It"
 Roles are a modular way to organize your tasks. Each role is like a mini playbook focused on one part of the setup.
 
 '''
@@ -72,8 +73,11 @@ roles/
 
 '''
 
-The ansible.cfg  - file is the configuration file for Ansible. It tells Ansible how to behave globally
-'''
+**The ansible.cfg**  
+ file is the configuration file for Ansible. It tells Ansible how to behave globally
+
+
+<pre>
 [defaults]
 inventory = inventory.yml
 host_key_checking = False
@@ -81,34 +85,34 @@ retry_files_enabled = False
 roles_path = ./roles
 remote_user = vagrant
 private_key_file = .vagrant/machines/default/virtualbox/private_key
-'''
+</pre>
     Run the Ansible Playbook
 
-'''ansible-playbook -i inventory.yml playbook.yml'''
+<pre>ansible-playbook -i inventory.yml playbook.yml</pre>
 
 ![Alt Text](readmeimages/ansible.png)
 
 
 Use Vagrant to manage your Virtual Machines.
-''' Vagrant Up'''
+<pre> Vagrant Up</pre>
 
 Gain acces to your Vagrant VM
-''' Vagrant ssh'''
+<pre> Vagrant ssh </pre>
 
 Once you have access build you project locally in the terminal
-''' docker-cpmpose build '''
-'''docker-compose up -d''' 
+<pre> docker-cpmpose build </pre>
+<pre> docker-compose up -d </pre>
 
 The application is now up and running, inside your host machine thanks to port forwading in the
 vagrant file
-''' # Correct forwarded ports
+<pre> # Correct forwarded ports
   config.vm.network "forwarded_port", guest: 3000, host: 3000   # React frontend
   config.vm.network "forwarded_port", guest: 5000, host: 5000   # Node backend
   config.vm.network "forwarded_port", guest: 27017, host: 27017 # MongoDB
-'''
+</pre>
 
 Navigate to your local browser at
-''' http://localhost:3000'''
+<pre> http://localhost:3000 </pre>
 
 ![Alt Text](readmeimages/frontend.png)
 
@@ -124,9 +128,9 @@ Congratulations your appilcation is you application is now up and running inside
 ![Alt Text](readmeimages/persistdata.png)
 
 To stop the apllication, run
-''' docker-compose down '''
+<pre> docker-compose down </pre>
 
 exit from your vagrant machine
-''' exit '''
+<pre> exit </pre>
 Stop the vagrant machine
-''' vagrant halt '''
+<pre> vagrant halt </pre>
