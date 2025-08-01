@@ -25,6 +25,11 @@ To run this project, ensure you have the following installed:
 
 
 
+[Read the full explanation here on 1P2](explanation.md)
+
+[Read the full explanation here on IP3](explanationip3.md)
+
+
 
 👤 Author
 Geoffrey Murira
