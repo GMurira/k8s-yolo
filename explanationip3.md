@@ -39,26 +39,49 @@ Ensuring idempotent infrastructure setup — repeatable and consistent
 
 
 
-Ansible Project Structure
+Ansible Project Structure.
+
+Inventoty -Defines the VM as a remote host (default)
+
+'''
+all:
+  hosts:
+    default:
+      ansible_host: 127.0.0.1
+      ansible_port: 2222
+      ansible_user: vagrant
+      ansible_private_key_file: .vagrant/machines/default/virtualbox/private_key
+
+'''
+
+Playbook:
+This is your main instruction file. It lists tasks that Ansible should run on the hosts listed in the inventory.
 
 
-yolo/
-├── ansible/
-│ ├── inventory.yml
-│ ├── playbook.yml
-│ └── roles/
-│ ├── setup-mongodb/
-│ │ └── tasks/main.yml
-│ ├── backend-deployment/
-│ │ └── tasks/main.yml
-│ └── frontend-deployment/
-│ └── tasks/main.yml
-├── Vagrantfile
-├── docker-compose.yml
-├── backend/
-├── client/
-└── README.md
+ 3. roles/ — The "How to Do It"
+Roles are a modular way to organize your tasks. Each role is like a mini playbook focused on one part of the setup.
 
+'''
+roles/
+├── setup-mongodb/
+│   └── tasks/main.yml
+├── backend-deployment/
+│   └── tasks/main.yml
+└── frontend-deployment/
+    └── tasks/main.yml
+
+'''
+
+The ansible.cfg  - file is the configuration file for Ansible. It tells Ansible how to behave globally
+'''
+[defaults]
+inventory = inventory.yml
+host_key_checking = False
+retry_files_enabled = False
+roles_path = ./roles
+remote_user = vagrant
+private_key_file = .vagrant/machines/default/virtualbox/private_key
+'''
     Run the Ansible Playbook
 
 '''ansible-playbook -i inventory.yml playbook.yml'''
@@ -67,25 +90,25 @@ yolo/
 
 
 Use Vagrant to manage your Virtual Machines.
-<pre> Vagrant Up</pre>
+''' Vagrant Up'''
 
 Gain acces to your Vagrant VM
-<Pre> Vagrant ssh</pre>
+''' Vagrant ssh'''
 
 Once you have access build you project locally in the terminal
-<pre>docker-cpmpose build</pre>
-<pre>docker-compose up -d</pre> 
+''' docker-cpmpose build '''
+'''docker-compose up -d''' 
 
 The application is now up and running, inside your host machine thanks to port forwading in the
 vagrant file
-<pre> # Correct forwarded ports
+''' # Correct forwarded ports
   config.vm.network "forwarded_port", guest: 3000, host: 3000   # React frontend
   config.vm.network "forwarded_port", guest: 5000, host: 5000   # Node backend
   config.vm.network "forwarded_port", guest: 27017, host: 27017 # MongoDB
-</pre>
+'''
 
 Navigate to your local browser at
-<pre>http://localhost:3000</pre>
+''' http://localhost:3000'''
 
 ![Alt Text](readmeimages/frontend.png)
 
@@ -101,9 +124,9 @@ Congratulations your appilcation is you application is now up and running inside
 ![Alt Text](readmeimages/persistdata.png)
 
 To stop the apllication, run
-<pre> docker-compose down</pre>
+''' docker-compose down '''
 
 exit from your vagrant machine
-<pre>exit</pre>
+''' exit '''
 Stop the vagrant machine
-<pre>vagrant halt</pre>
+''' vagrant halt '''
