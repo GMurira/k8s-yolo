@@ -30,6 +30,8 @@ ansible --version
 
 
 
+
+
 <pre> bash # Initialize the geerlingguy/ubuntu2004 Vagrant box vagrant init geerlingguy/ubuntu2004 # Start and provision the Vagrant environment vagrant up</pre>
 - vagrant, to install vagrant
 !
@@ -123,6 +125,12 @@ remote_user = vagrant
 private_key_file = .vagrant/machines/default/virtualbox/private_key
 </pre>
 
+## Test Ansible connection
+<pre>ansible all -m pind</pre>
+
+-You should see the following output.
+
+![Alt Text](readmeimages/pingpong.png)
 
 
 **Runnning the Ansible Playbook**
