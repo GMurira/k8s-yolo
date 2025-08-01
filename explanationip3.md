@@ -9,17 +9,25 @@ This project uses **Ansible** to automate deployment of a full-stack e-commerce 
 - Docker for containerization
 
 ---
-
-##  Project Structure
-
 ## ⚙️ Prerequisites
 
-Make sure the target server or Vagrant box has:
-- Docker installed
-- Ansible installed locally (on your host machine)
-- Your Ansible inventory is correctly configured
-- geerlingguy/ubuntu2004 (virtualbox, 1.0.4)  **Base Vagrant Box**  
-[geerlingguy/ubuntu2004 on HashiCorp Cloud]
+Ensure the following are installed:
+
+- [Node.js](https://nodejs.org/) (v20+)
+- [MongoDB](https://www.mongodb.com/) (v6.0+)
+- [Docker](https://docs.docker.com/) (v20.10+)
+- [Docker Compose](https://docs.docker.com/compose/) (v2.0+)
+- [Vagrant](https://www.vagrantup.com/) (1.0.4+)
+- [Ansible](https://www.ansible.com/) (installed on your **host** machine)
+
+### 🧱 Base VM Box
+- Vagrant Box: [`geerlingguy/ubuntu2004`](https://portal.cloud.hashicorp.com/vagrant/discover/geerlingguy/ubuntu2004)
+
+### 🛠️ Vagrant Setup
+```bash
+sudo apt update
+sudo apt install vagrant
+vagrant --version
 
 <pre> ```bash # Initialize the geerlingguy/ubuntu2004 Vagrant box vagrant init geerlingguy/ubuntu2004 # Start and provision the Vagrant environment vagrant up ``` </pre>
 - vagrant, to install vagrantrant
@@ -51,10 +59,23 @@ Ensuring idempotent infrastructure setup — repeatable and consistent
 
 Ansible Project Structure
 
-ansible/
-├── inventory.yml      # Defines the target host (Vagrant box)
-└── playbook.yml       # Main playbook for provisioning and deployment
 
+yolo/
+├── ansible/
+│ ├── inventory.yml
+│ ├── playbook.yml
+│ └── roles/
+│ ├── setup-mongodb/
+│ │ └── tasks/main.yml
+│ ├── backend-deployment/
+│ │ └── tasks/main.yml
+│ └── frontend-deployment/
+│ └── tasks/main.yml
+├── Vagrantfile
+├── docker-compose.yml
+├── backend/
+├── client/
+└── README.md
 
     Run the Ansible Playbook
 
@@ -62,8 +83,7 @@ ansible/
 
 ![Alt Text](readmeimages/ansible.png)
 
-
-Run you vagrant VM
+# USe vagrant to manage your Virtual Machine
 <pre> Vagrant Up</pre>
 
 Gain acces to your Vagrant VM
