@@ -24,11 +24,11 @@ Make sure the target server or Vagrant box has:
 <pre> ```bash # Initialize the geerlingguy/ubuntu2004 Vagrant box vagrant init geerlingguy/ubuntu2004 # Start and provision the Vagrant environment vagrant up ``` </pre>
 - vagrant, to install vagrantrant
 !
-<pre>sudo apt get update<pre>
-<pre>sudo apt install vagrant<pre>
+<pre>sudo apt get update</pre>
+<pre>sudo apt install vagrant</pre>
 
 Ensure that it is installed
-<pre>vagrant --version<pre>
+<pre>vagrant --version</pre>
 ##  Deployment Steps
 
 1. **Clone this repository**
@@ -38,20 +38,20 @@ Ensure that it is installed
 
     Run the Ansible Playbook
 
-<pre>ansible-playbook -i inventory.yml playbook.yml<pre>
+<pre>ansible-playbook -i inventory.yml playbook.yml</pre>
 
 ![Alt Text](readmeimages/ansible.png)
 
 
 Run you vagrant VM
-<pre> Vagrant Up<pre>
+<pre> Vagrant Up</pre>
 
 Gain acces to your Vagrant VM
-<Pre> Vagrant ssh<pre>
+<Pre> Vagrant ssh</pre>
 
 Once you have access build you project locally in the terminal
-<pre>docker-cpmpose build<pre>
-<pre>docker-compose up -d<pre> 
+<pre>docker-cpmpose build</pre>
+<pre>docker-compose up -d</pre> 
 
 The application is now up and running, inside your host machine thanks to port forwading in the
 vagrant file
@@ -59,9 +59,9 @@ vagrant file
   config.vm.network "forwarded_port", guest: 3000, host: 3000   # React frontend
   config.vm.network "forwarded_port", guest: 5000, host: 5000   # Node backend
   config.vm.network "forwarded_port", guest: 27017, host: 27017 # MongoDB
-<pre>
+</pre>
 
 navigate to your local browser at
-<pre>http://localhost:3000<pre>
+<pre>http://localhost:3000</pre>
 
 ![Alt Text](readmeimages/ansible.png)
