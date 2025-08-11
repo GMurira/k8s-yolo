@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-backend
+  namespace: yolo
+  labels:
+    app: yolo-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: yolo-backend
+  template:
+    metadata:
+      labels:
+        app: yolo-backend
+    spec:
+      containers:
+      - name: backend
+        image: neoooo2/geoffrey-yolo-backend:v1.0.0
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGO_URL
+          value: mongodb://yolo-mongo-0.yolo-mongo.yolo.svc.cluster.local:27017
