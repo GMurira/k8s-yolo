@@ -40,4 +40,4 @@ To run this project, ensure the following tools are installed:
 **Geoffrey Murira**  
 📦 [Docker Hub: neoooo2](https://hub.docker.com/u/neoooo2)  
 💻 [GitHub Profile](https://github.com/GMurira)  
-📍 Nairobi, Kenya 🇰🇪
+📍 Nairobi, Kenya 
