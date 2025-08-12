@@ -14,16 +14,14 @@ spec:
       labels:
         app: yolo-mongo
     spec:
-      initContainers:
-        - name: fix-permissions
-          image: bitnami/mongodb:latest
-          command: ["sh", "-c", "mkdir -p /bitnami/mongodb && chown -R 1001:1001 /bitnami/mongodb"]
-          volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /bitnami/mongodb
+      securityContext:    # <-- Pod-level
+        fsGroup: 1001
       containers:
         - name: mongo
           image: bitnami/mongodb:latest
+          securityContext:  # <-- Container-level
+            runAsUser: 1001
+            runAsGroup: 1001
           ports:
             - containerPort: 27017
           volumeMounts:
@@ -64,4 +62,4 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 2Gi
+            storage: 1Gi
