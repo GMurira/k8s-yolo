@@ -23,3 +23,19 @@ spec:
         env:
         - name: MONGO_URL
           value: mongodb://yolo-mongo-0.yolo-mongo.yolo.svc.cluster.local:27017
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          failureThreshold: 5
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          failureThreshold: 5
+          timeoutSeconds: 5

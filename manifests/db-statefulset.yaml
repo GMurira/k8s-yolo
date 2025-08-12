@@ -26,6 +26,26 @@ spec:
         volumeMounts:
         - name: mongo-persistent-storage
           mountPath: /bitnami/mongodb
+        readinessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          failureThreshold: 6
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 6
+          timeoutSeconds: 5
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
@@ -33,4 +53,4 @@ spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 5Gi
+          storage: 2Gi
