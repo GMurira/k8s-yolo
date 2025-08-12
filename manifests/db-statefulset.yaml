@@ -14,43 +14,54 @@ spec:
       labels:
         app: yolo-mongo
     spec:
+      initContainers:
+        - name: fix-permissions
+          image: bitnami/mongodb:latest
+          command: ["sh", "-c", "mkdir -p /bitnami/mongodb && chown -R 1001:1001 /bitnami/mongodb"]
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /bitnami/mongodb
       containers:
-      - name: mongo
-        image: bitnami/mongodb:7.0
-        ports:
-        - containerPort: 27017
-          name: mongo
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        volumeMounts:
-        - name: mongo-persistent-storage
-          mountPath: /bitnami/mongodb
-        readinessProbe:
-          exec:
-            command:
-            - mongo
-            - --eval
-            - "db.adminCommand('ping')"
-          initialDelaySeconds: 20
-          periodSeconds: 10
-          failureThreshold: 6
-          timeoutSeconds: 5
-        livenessProbe:
-          exec:
-            command:
-            - mongo
-            - --eval
-            - "db.adminCommand('ping')"
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          failureThreshold: 6
-          timeoutSeconds: 5
+        - name: mongo
+          image: bitnami/mongodb:latest
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /bitnami/mongodb
+          env:
+            - name: MONGODB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-root-password
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - |
+                  mongosh --quiet --eval "db.adminCommand('ping')" --authenticationDatabase admin -u root -p "$MONGODB_ROOT_PASSWORD"
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 6
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - |
+                  mongosh --quiet --eval "db.adminCommand('ping')" --authenticationDatabase admin -u root -p "$MONGODB_ROOT_PASSWORD"
+            initialDelaySeconds: 40
+            periodSeconds: 10
+            failureThreshold: 6
+            timeoutSeconds: 5
   volumeClaimTemplates:
-  - metadata:
-      name: mongo-persistent-storage
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 2Gi
+    - metadata:
+        name: mongo-persistent-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

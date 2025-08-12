@@ -21,8 +21,10 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: MONGO_URL
-          value: mongodb://yolo-mongo-0.yolo-mongo.yolo.svc.cluster.local:27017
+        - name: PORT
+          value: "5000"
+        - name: MONGODB_URI
+          value: mongodb://yolo-mongo.yolo.svc.cluster.local:27017/ecommerce
         readinessProbe:
           httpGet:
             path: /health
