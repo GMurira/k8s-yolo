@@ -31,7 +31,15 @@ To run this project, ensure the following tools are installed:
 ## 📘 Further Documentation
 
 - 📄 [Full Explanation for IP2 Deployment](explanation.md)
+
+
+
+
 - 📄 [Full Explanation for IP3 Configuration Management](explanationip3.md)
+
+
+
+- 📄 [Week 8 Explanation for k8s](explanationk8s.md)
 
 ---
 
