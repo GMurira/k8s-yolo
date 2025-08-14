@@ -45,8 +45,8 @@ app.use(upload.array());
 // Routes
 app.use('/api/products', productRoute);
 
-// Start server
+// Start server and bind to all network interfaces
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server is running on port ${PORT}`);
 });

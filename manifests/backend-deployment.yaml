@@ -3,51 +3,35 @@ kind: Deployment
 metadata:
   name: yolo-backend
   namespace: yolo
-  labels:
-    app: yolo-backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: yolo-backend
+      app: backend
   template:
     metadata:
       labels:
-        app: yolo-backend
+        app: backend
     spec:
-      restartPolicy: Always
-      initContainers:
-      - name: wait-for-mongo
-        image: busybox:1.36
-        command:
-          - sh
-          - -c
-          - |
-            until nc -z yolo-mongo-0.yolo-mongo.yolo.svc.cluster.local 27017; do
-              echo "Waiting for MongoDB..."
-              sleep 2
-            done
       containers:
       - name: backend
-        image: neoooo2/geoffrey-yolo-backend:v1.0.0
+        image: neoooo2/yolo-backend:v1.0.0
         ports:
-          - containerPort: 5000
+        - containerPort: 5000
         env:
-          - name: PORT
-            value: "5000"
-          - name: MONGODB_URI
-            value: mongodb://yolo-mongo-0.yolo-mongo.yolo.svc.cluster.local:27017/ecommerce
+        - name: MONGODB_URI
+          value: "mongodb://app-mongo:27017/ecommerce"
+        - name: PORT
+          value: "5000"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 5
-          failureThreshold: 6
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 6

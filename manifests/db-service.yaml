@@ -4,12 +4,9 @@ metadata:
   name: yolo-mongo
   namespace: yolo
 spec:
+  type: ClusterIP
+  ports:
+    - port: 27017
+      targetPort: 27017
   selector:
     app: yolo-mongo
-  ports:
-    - name: mongo
-      protocol: TCP
-      port: 27017
-      targetPort: 27017
-  clusterIP: None
-  publishNotReadyAddresses: false
